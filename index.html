@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Price Predictions 3P's</title>
+    <style>
+        body{
+            background-color: hsla(0, 9%, 9%, 0.918);
+            margin:0;
+            padding:20px;
+        }
+        h1{
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-shadow: 2px 2px hsl(177, 73%, 60%);
+            text-align:center;
+            color:hsla(60, 63%, 12%, 0.795);
+            margin-bottom: 30px;
+        }
+        h2{
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-shadow: 2px 2px hsl(177, 73%, 60%);
+            text-align:center;
+            color:hsla(60, 63%, 12%, 0.795);
+        }
+        #main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .left-buttons-group, .right-buttons-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .but-box{
+            background-color: hsl(140, 58%, 59%);
+            height: 45px;
+            width: 180px;
+            border-radius: 10px;
+            color: hsl(216, 84%, 24%);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: block;
+            font-size: 14px;
+        }
+        button:hover{
+            background-color: rgb(230, 230, 93);
+            transform:scale(1.02);
+        }
+        
+        #box-picture{
+            height: 350px;
+            width: 350px;
+            box-shadow: 2px 2px hsla(0, 0%, 4%, 0.952), -2px -2px hsla(0, 0%, 4%, 0.952);
+            margin: auto;
+            background-color: #1a1013;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        #box-picture img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit:fill;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .image-placeholder{
+            color:#888;
+            text-align: center;
+            font-size:14px;
+        }
+        p{
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffd966;
+            margin-top: 30px;
+            text-shadow: 1px 1px #000;
+        }
+        label{
+            color:white;
+            font-weight: bolder;
+        }
+        @media(max-width: 700px){
+            #main-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .left-buttons-group, .right-buttons-group {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Print Price Predictions</h1>
+    <div id="main-container">
+        <div class="left-buttons-group">
+            <h2>Hoodies</h2>
+            <button class="but-box" id="first">Preview Hoodie</button>
+            <button class="but-box" id="stomach">Stomach Print Hoodie</button>
+            <button class="but-box" id="chest">Chest Print Hoodie</button>
+            <button class="but-box" id="hand">Hand Print Hoodie</button>
+            <button class="but-box" id="all">3 Combo Hoodie</button>
+        </div>
+        
+        <div id="box-picture">
+            <div class="image-placeholder">Hover over buttons to preview designs</div>
+        </div>
+        
+        <div class="right-buttons-group">
+            <h2>T-shirts</h2>
+            <button class="but-box" id="first1">Preview T-shirt</button>
+            <button class="but-box" id="stomach1">Stomach Print T-shirt</button>
+            <button class="but-box" id="chest1">Chest Print T-shirt</button>
+            <button class="but-box" id="hand1">Hand Print T-shirt</button>
+            <button class="but-box" id="all1">2 Combo T-shirt</button>
+        </div>
+    </div>
+    
+    <p id="results"></p>
+  
+    <script>
+        // FAn object that contains all images for this app
+        const images = {
+            handHoodie: '<img src="images/hand.png" alt="Hand print hoodie">',
+            comboHoodie: '<img src="images/middleP & chest & hand.png" alt="3 combo hoodie">',
+            chestHoodie: '<img src="images/Untitled design.png" alt="Chest print hoodie">',
+            stomachHoodie: '<img src="images/middleP.png" alt="Stomach print hoodie">',
+            stomachTshirt: '<img src="images/t shirt(middle).png" alt="Stomach print tshirt">',
+            chestTshirt: '<img src="images/t shirt(text).png" alt="Chest print tshirt">',
+            textTshirt: '<img src="images/.png" alt="Text print tshirt">',
+            designTshirt: '<img src="images/t shirt(mid & hand).png" alt="Design tshirt">',
+            blackHoodie: '<img src="images/black hoodie.webp" alt="Black hoodie">',
+            blackTshirt: '<img src="images/black t.webp" alt="Black tshirt">'
+        };
+
+        // Get all elements
+        const hoodie = document.getElementById("first");
+        const tshirt = document.getElementById("first1");
+        const results = document.getElementById("results");
+        
+        // Hoodie buttons 
+        const stomach = document.getElementById("stomach");
+        const chest = document.getElementById("chest");
+        const hand = document.getElementById("hand");
+        const all = document.getElementById("all");
+        
+        // T-shirt buttons 
+        const stomach1 = document.getElementById("stomach1");
+        const chest1 = document.getElementById("chest1");
+        const hand1 = document.getElementById("hand1");
+        const all1 = document.getElementById("all1");
+        
+        let picture = document.getElementById("box-picture");
+        
+        // Hoodie button handlers
+        hoodie.onclick = function(){
+            picture.innerHTML = images.blackHoodie;
+            results.innerHTML = ``;
+        }
+
+        hand.onclick = function(){
+            picture.innerHTML = images.handHoodie;
+            results.innerHTML = `The hand print will cost R200`;
+        }
+        
+        stomach.onclick = function(){
+            picture.innerHTML = images.stomachHoodie;
+            results.innerHTML = `The stomach print will cost R250`;
+        }
+        
+        chest.onclick = function(){
+            picture.innerHTML = images.chestHoodie;
+            results.innerHTML = `The chest print will cost R210`;
+        }
+        
+        all.onclick = function(){
+            picture.innerHTML = images.comboHoodie;
+            results.innerHTML = `The 3-combo print will cost R280`;
+        }
+        
+        // T-shirt button handlers 
+        tshirt.onclick = function(){
+            picture.innerHTML = images.blackTshirt;
+            results.innerHTML = ``;
+        }
+        
+        hand1.onclick = function(){
+            picture.innerHTML = images.designTshirt; 
+            results.innerHTML = `The hand print on T-shirt will cost R180`;
+        }
+        
+        stomach1.onclick = function(){
+            picture.innerHTML = images.stomachTshirt;
+            results.innerHTML = `The stomach print on T-shirt will cost R220`;
+        }
+        
+        chest1.onclick = function(){
+            picture.innerHTML = images.chestTshirt;
+            results.innerHTML = `The chest print on T-shirt will cost R190`;
+        }
+        
+        all1.onclick = function(){
+            picture.innerHTML = images.designTshirt; 
+            results.innerHTML = `The 3-combo print on T-shirt will cost R250`;
+        }
+
+    </script>
+</body>
+</html>
