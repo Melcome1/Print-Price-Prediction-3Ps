@@ -16,7 +16,7 @@
 
 ## Live Demo
 
-![Demo of Print Price Predictions](3Ps.gif)
+![Demo of Print Price Predictions](3P's.gif)
 
 ## Technologies Used
 
